@@ -13,7 +13,17 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_DIR = os.path.abspath(os.path.join(SETTINGS_DIR, os.pardir))
+STATIC_NAME = "static"
+STATIC_DIR = "/".join([STATIC_NAME])
+STATIC_DOC_ROOT = os.path.join(SETTINGS_DIR, STATIC_NAME)
+
+import sys
+sys.path.insert(0, PROJECT_DIR)
+
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,6 +41,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,6 +79,11 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+  
+    "django.core.context_processors.request",
+)
+
 WSGI_APPLICATION = 'JobApplicationAssignment.wsgi.application'
 
 
@@ -76,8 +92,13 @@ WSGI_APPLICATION = 'JobApplicationAssignment.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        # :DEPLOY
+        'NAME': 'Bynder',
+        # :DEPLOY
+        'USER': 'root',
+        # :DEPLOY
+        'PASSWORD': 'root',
     }
 }
 
